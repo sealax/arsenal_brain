@@ -1,0 +1,15 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: arsenal_db
+    environment:
+      POSTGRES_DB: arsenal
+      POSTGRES_USER: arsenal
+      POSTGRES_PASSWORD: arsenal_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - arsenal_pgdata:/var/lib/postgresql/data
+
+volumes:
+  arsenal_pgdata:
