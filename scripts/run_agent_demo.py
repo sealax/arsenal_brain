@@ -3,9 +3,11 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import shutil
 import subprocess
 import sys
+import tomllib
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -20,10 +22,16 @@ CASES = {
 }
 
 
-def run(case: str, destination: Path, timeout: int):
+def run(case: str, destination: Path, timeout: int, model: str | None = None):
     codex = shutil.which('codex')
     if not codex:
         raise RuntimeError('Install Codex CLI and sign in first; see docs/AGENT_DEMO.md')
+    # Preserve only the user's model choice while isolating this run's MCP settings.
+    config = Path(os.environ.get('CODEX_HOME', str(Path.home() / '.codex'))) / 'config.toml'
+    if model is None and config.exists():
+        model = tomllib.loads(config.read_text()).get('model')
+    if not model:
+        raise RuntimeError('Set your Codex model or pass --model; do not rely on a stale CLI default')
     destination.mkdir(parents=True, exist_ok=True)
     tool_log = destination / f'{case}.tool.jsonl'
     if tool_log.exists():
@@ -39,7 +47,7 @@ def run(case: str, destination: Path, timeout: int):
         'Keep the final answer under 120 words. Question: ' + CASES[case]
     )
     command = [codex, '-a', 'never', 'exec', '--ignore-user-config', '--ephemeral',
-               '--sandbox', 'read-only', '--json', '--color', 'never', '-C', str(ROOT),
+               '--sandbox', 'read-only', '--json', '--color', 'never', '--model', model, '-C', str(ROOT),
                '-c', 'mcp_servers.arsenal.command=' + json.dumps(sys.executable),
                '-c', 'mcp_servers.arsenal.args=["-m", "app.mcp_server"]',
                '-c', 'mcp_servers.arsenal.cwd=' + json.dumps(str(ROOT / 'api')),
@@ -81,7 +89,8 @@ def run(case: str, destination: Path, timeout: int):
         'finished_utc': datetime.now(timezone.utc).isoformat(),
         'git_commit': git_sha, 'working_tree_dirty': dirty,
         'codex_version': subprocess.check_output([codex, '--version'], text=True).strip(),
-        'model_selection': 'Client default, no explicit override. Resolved model may not appear in client events.',
+        'requested_model': model,
+        'model_selection': 'Explicit --model or the model from the user config. Provider routing is not independently attested.',
         'protocol': 'MCP stdio', 'retrieval_backend': 'local_lexical',
         'corpus_sha256': index.corpus_sha256, 'prompt': prompt,
         'client_calls': [{k: i.get(k) for k in ['server', 'tool', 'arguments', 'status', 'result', 'error']} for i in calls],
@@ -104,5 +113,6 @@ if __name__ == '__main__':
     parser.add_argument('--output-dir', type=Path, default=ROOT / 'evidence' / 'runs' /
                         datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
     parser.add_argument('--timeout', type=int, default=180)
+    parser.add_argument('--model', help='Defaults to the model already selected in your Codex config')
     args = parser.parse_args()
-    run(args.case, args.output_dir.resolve(), args.timeout)
+    run(args.case, args.output_dir.resolve(), args.timeout, args.model)

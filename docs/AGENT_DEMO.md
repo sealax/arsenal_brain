@@ -19,7 +19,7 @@ python3 -m venv .venv
 
 ## Record a real agent call
 
-Install Codex CLI and sign in first. The demo uses the existing account's usage allowance. It needs no API key and changes no global settings: the runner supplies temporary per-invocation MCP configuration.
+Install Codex CLI and sign in first. The demo uses the existing account's usage allowance. It needs no API key and changes no global settings: the runner supplies temporary per-invocation MCP configuration and preserves the model already selected in your user config. You can pass `--model` explicitly. This avoids relying on an older CLI's unsupported built-in model default.
 
 ```sh
 .venv/bin/python scripts/run_agent_demo.py --case founding
