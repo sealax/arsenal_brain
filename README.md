@@ -1,5 +1,9 @@
 # Arsenal Brain API
 
+## Current football data
+
+Fixtures, results, standings and team profiles are available as read-only MCP tools. See [setup and console instructions](docs/FOOTBALL_DATA.md). A football-data.org token is required for these tools; free-tier scores may be delayed. Historical search works without it.
+
 ## Agent integration
 
 A read-only MCP tool now exposes source-linked retrieval to agents. See [the demo guide](docs/AGENT_DEMO.md) for setup, tests, real-run evidence and AI-assistance attribution. The local demo uses lexical search over this repository's raw corpus, separately from the pgvector API below.
