@@ -29,6 +29,14 @@ Install Codex CLI and sign in first. The demo uses the existing account's usage 
 
 Each run saves ignored raw client events, stderr, a server tool trace and a shareable `*.evidence.json`. The export records prompt, client call, server response, final answer, corpus fingerprint and code commit. The runner fails without a corresponding real MCP invocation, or if completed events show shell commands, web search or file edits. The prompt explicitly asks the agent to use the tool; the model chooses search arguments. This is not a claim of unprompted tool discovery.
 
+On macOS the runner prefers the CLI bundled with the ChatGPT desktop app when available, otherwise `codex` on PATH. Use `--codex /absolute/path/to/codex` to choose another executable. The captured runs used bundled version `0.162.0-alpha.17.2`; the older PATH CLI `0.137.0` rejected the configured model. This change does not update or replace either installation.
+
+See [the recorded demonstration](../evidence/2026-10-23/SUMMARY.md). Recheck its client/server responses and source spans with:
+
+```sh
+.venv/bin/python scripts/verify_evidence.py evidence/2026-10-23/founding.json evidence/2026-10-23/missing.json evidence/2026-10-23/unsupported-match.json
+```
+
 Inspect unsupported cases carefully. A current-captain question has no useful lexical matches. A stadium WiFi question matches passages which lack the answer. The agent should abstain in both; keyword overlap is not answerability. The ten-case evaluation measures retrieval behaviour, not ten live agent conversations.
 
 ## Connect manually

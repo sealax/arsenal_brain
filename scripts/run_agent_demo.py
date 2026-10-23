@@ -23,7 +23,8 @@ CASES = {
 
 
 def run(case: str, destination: Path, timeout: int, model: str | None = None, client: str | None = None):
-    codex = client or shutil.which('codex')
+    bundled = Path('/Applications/ChatGPT.app/Contents/Resources/codex-cli/bin/codex')
+    codex = client or (str(bundled) if bundled.is_file() else shutil.which('codex'))
     if not codex:
         raise RuntimeError('Install Codex CLI and sign in first; see docs/AGENT_DEMO.md')
     # Preserve only the user's model choice while isolating this run's MCP settings.

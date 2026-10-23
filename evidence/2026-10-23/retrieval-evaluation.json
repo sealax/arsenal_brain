@@ -1,0 +1,113 @@
+{
+  "evaluation_type": "deterministic_retrieval",
+  "backend": "local_lexical",
+  "corpus_sha256": "29cc7c87263f8a521867c29b2c78a950401019b84bc390001e35a5ad32511361",
+  "total": 10,
+  "passed": 10,
+  "cases": [
+    {
+      "case": "original_name",
+      "question": "What was Arsenal originally called?",
+      "expected": "Dial Square",
+      "assertion": "Expected evidence appears in top 3 passages; not answer-generation scoring.",
+      "passed": true,
+      "source_ids": [
+        "arsenal_history.txt:669-1515",
+        "arsenal_history.txt:1344-2188"
+      ]
+    },
+    {
+      "case": "foundation",
+      "question": "When was Arsenal founded?",
+      "expected": "1886",
+      "assertion": "Expected evidence appears in top 3 passages; not answer-generation scoring.",
+      "passed": true,
+      "source_ids": [
+        "arsenal_history.txt:669-1515",
+        "arsenal_history.txt:1344-2188"
+      ]
+    },
+    {
+      "case": "stadium",
+      "question": "When did Arsenal move to Emirates Stadium?",
+      "expected": "2006",
+      "assertion": "Expected evidence appears in top 3 passages; not answer-generation scoring.",
+      "passed": true,
+      "source_ids": [
+        "arsenal_history.txt:2012-2601",
+        "arsenal_history.txt:1344-2188"
+      ]
+    },
+    {
+      "case": "motto",
+      "question": "What does Victoria Concordia Crescit mean?",
+      "expected": "Victory Through Harmony",
+      "assertion": "Expected evidence appears in top 3 passages; not answer-generation scoring.",
+      "passed": true,
+      "source_ids": [
+        "arsenal_history.txt:2012-2601"
+      ]
+    },
+    {
+      "case": "chapman",
+      "question": "Who introduced the WM formation?",
+      "expected": "Herbert Chapman",
+      "assertion": "Expected evidence appears in top 3 passages; not answer-generation scoring.",
+      "passed": true,
+      "source_ids": [
+        "arsenal_history.txt:1344-2188"
+      ]
+    },
+    {
+      "case": "wenger",
+      "question": "How many FA Cups did Wenger win?",
+      "expected": "seven FA Cups",
+      "assertion": "Expected evidence appears in top 3 passages; not answer-generation scoring.",
+      "passed": true,
+      "source_ids": [
+        "arsenal_history.txt:669-1515",
+        "arsenal_history.txt:1344-2188",
+        "arsenal_history.txt:0-843"
+      ]
+    },
+    {
+      "case": "invincibles",
+      "question": "What was the Invincibles unbeaten league run?",
+      "expected": "49 games",
+      "assertion": "Expected evidence appears in top 3 passages; not answer-generation scoring.",
+      "passed": true,
+      "source_ids": [
+        "arsenal_history.txt:1344-2188",
+        "arsenal_history.txt:2012-2601",
+        "arsenal_history.txt:0-843"
+      ]
+    },
+    {
+      "case": "missing",
+      "question": "Who is the current captain in 2026?",
+      "expected": null,
+      "assertion": "No match, no sources.",
+      "passed": true,
+      "source_ids": []
+    },
+    {
+      "case": "other_sport",
+      "question": "What is the latest NBA score?",
+      "expected": null,
+      "assertion": "No match, no sources.",
+      "passed": true,
+      "source_ids": []
+    },
+    {
+      "case": "unknown_overlap",
+      "question": "What is the Emirates Stadium WiFi password?",
+      "expected": "UNSUPPORTED_MATCH",
+      "assertion": "Overlapping context carries a warning; this does NOT prove model abstention.",
+      "passed": true,
+      "source_ids": [
+        "arsenal_history.txt:2012-2601",
+        "arsenal_history.txt:1344-2188"
+      ]
+    }
+  ]
+}
