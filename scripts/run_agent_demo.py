@@ -22,8 +22,8 @@ CASES = {
 }
 
 
-def run(case: str, destination: Path, timeout: int, model: str | None = None):
-    codex = shutil.which('codex')
+def run(case: str, destination: Path, timeout: int, model: str | None = None, client: str | None = None):
+    codex = client or shutil.which('codex')
     if not codex:
         raise RuntimeError('Install Codex CLI and sign in first; see docs/AGENT_DEMO.md')
     # Preserve only the user's model choice while isolating this run's MCP settings.
@@ -114,5 +114,6 @@ if __name__ == '__main__':
                         datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%SZ'))
     parser.add_argument('--timeout', type=int, default=180)
     parser.add_argument('--model', help='Defaults to the model already selected in your Codex config')
+    parser.add_argument('--codex', help='Path to a specific Codex CLI binary')
     args = parser.parse_args()
-    run(args.case, args.output_dir.resolve(), args.timeout, args.model)
+    run(args.case, args.output_dir.resolve(), args.timeout, args.model, args.codex)
