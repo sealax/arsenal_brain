@@ -1,5 +1,11 @@
 # Arsenal Brain API
 
+## Agent integration
+
+A read-only MCP tool now exposes source-linked retrieval to agents. See [the demo guide](docs/AGENT_DEMO.md) for setup, tests, real-run evidence and AI-assistance attribution. The local demo uses lexical search over this repository's raw corpus, separately from the pgvector API below.
+
+[Recorded agent demonstration and test results](evidence/2026-10-23/SUMMARY.md)
+
 Arsenal Brain is a Retrieval-Augmented Generation (RAG) API built with FastAPI, PostgreSQL (pgvector), and OpenAI.
 
 It allows you to:
