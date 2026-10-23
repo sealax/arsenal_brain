@@ -1,8 +1,8 @@
 # Arsenal Brain agent demonstration
 
-An agent can now search the existing Arsenal history document through one read-only MCP tool, `search_arsenal_knowledge`. Results contain original passages, document hashes and exact character spans so citations can be checked.
+The original recorded demonstration searches the existing Arsenal history document through the read-only MCP tool, `search_arsenal_knowledge`. Results contain original passages, document hashes and exact character spans so citations can be checked.
 
-This local demo uses lexical retrieval. It does not exercise the separate OpenAI/pgvector API, generate embeddings, refresh football facts or demonstrate production adoption. The tool runs offline; the agent client uses its existing model login. Source passages are sent to that model during a run.
+The server now also offers [separate current-football tools](FOOTBALL_DATA.md), requiring a provider token. The recorded historical demo below uses lexical retrieval. It does not exercise the separate OpenAI/pgvector API, generate embeddings, refresh football facts or demonstrate production adoption. The tool runs offline; the agent client uses its existing model login. Source passages are sent to that model during a run.
 
 ## Setup and tests
 
