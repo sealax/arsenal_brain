@@ -32,6 +32,14 @@ Choose `fixtures`, `results`, `live`, `table` or `team`. This is a direct MCP co
 
 For an agent conversation, use the MCP client configuration in [AGENT_DEMO.md](AGENT_DEMO.md#connect-manually), restart the client and ask: “Use get_team_matches for Arsenal's next Premier League fixtures, then get_league_table. Cite the provider, fetch time, season and delay warnings.” The model chooses the calls. It must not infer current facts from the historical document. Calls use your football-data account; model responses use your normal model allowance.
 
+To record a real agent demonstration using your existing Codex login:
+
+```sh
+.venv/bin/python scripts/run_football_agent.py
+```
+
+The runner asks the model to use both match and table tools, lets it choose arguments, checks completed native MCP events and successful provider responses, then saves a key-free evidence export under ignored `evidence/runs/`. Raw local events also remain ignored. It uses your configured Codex model and existing account allowance. This is separate from the direct console and does require a model login.
+
 ## Contract and limitations
 
 - `get_team_matches`: default team ID 57 (Arsenal); fixtures look forward 30 days, results look back 30 days; `days` 1–90, `limit` 1–20. `live` checks today's in-play statuses and still warns about delayed data. Kickoffs are UTC and Europe/London, including daylight-saving transitions. Unknown scores remain null; postponed matches are labelled provisional. Completed results sort newest first.
@@ -54,7 +62,7 @@ Football data provided by the Football-Data.org API. Display that attribution wh
 
 See the [dated validation record](../evidence/football-integration/VALIDATION.md) for completed checks and outstanding live acceptance.
 
-Tests use synthetic provider responses and real local MCP protocol calls. They need no provider secret and make no external football requests. A successful authenticated provider run is a separate acceptance step after configuring the token. The original historical agent evidence remains tied to its original commits.
+Tests use synthetic provider responses and real local MCP protocol calls. They need no provider secret and make no external football requests. Authenticated provider acceptance and a real model-selected football call have also been recorded separately in the dated validation record. Re-run the console or agent demo to fetch a new snapshot with your own token. The original historical agent evidence remains tied to its original commits.
 
 This extension was generated and tested with Codex at Christopher's request. It does not establish unaided authorship or production use.
 
