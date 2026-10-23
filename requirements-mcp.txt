@@ -1,0 +1,2 @@
+# Isolated from the original API: this local corpus tool needs neither a DB nor an API key.
+mcp==1.30.0
